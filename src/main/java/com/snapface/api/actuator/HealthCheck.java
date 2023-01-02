@@ -1,7 +1,6 @@
 package com.snapface.api.actuator;
 
-import com.snapface.api.model.Facesnap;
-import com.snapface.api.service.FacesnapService;
+import com.snapface.api.services.FacesnapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;

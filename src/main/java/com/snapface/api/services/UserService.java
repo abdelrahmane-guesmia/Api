@@ -1,10 +1,10 @@
-package com.snapface.api.service;
+package com.snapface.api.services;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.snapface.api.model.User;
+import com.snapface.api.models.User;
 import com.snapface.api.repository.UserRepository;
 
 import lombok.Data;

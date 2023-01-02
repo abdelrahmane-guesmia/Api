@@ -1,16 +1,24 @@
-package com.snapface.api.controller;
+package com.snapface.api.controllers;
 
-import com.snapface.api.model.Facesnap;
-import com.snapface.api.service.FacesnapService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import com.snapface.api.models.Facesnap;
+import com.snapface.api.services.FacesnapService;
 
 import java.util.Date;
 import java.util.Optional;
 
+import static com.snapface.api.security.WebSecurityConfig.SECURITY_CONFIG_NAME;
+
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Facesnap", description = "Facesnap manipulation")
 @RestController
+@RequestMapping("/api/facesnap")
+@SecurityRequirement(name = SECURITY_CONFIG_NAME)
 public class FacesnapController {
     @Autowired
     private FacesnapService facesnapService;
@@ -19,7 +27,8 @@ public class FacesnapController {
      * Read - get all snapface
      * @return - An iterable object of snapface fulfilled
      */
-    @GetMapping("/facesnap")
+    @GetMapping("")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public Iterable<Facesnap> getSnapfaces() {
         return facesnapService.getFacesnaps();
     }
@@ -29,7 +38,8 @@ public class FacesnapController {
      * @param id - the id of the snapface
      * @return An snapface object fulfilled
      */
-    @GetMapping("/facesnap/{id}")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public Facesnap getSnapface(@PathVariable("id") final Long id) {
         Optional<Facesnap> facesnap = facesnapService.getFacesnap(id);
         return facesnap.orElse(null);
@@ -40,7 +50,8 @@ public class FacesnapController {
      * @param facesnap - An object snapface
      * @return The snapface object created
      */
-    @PostMapping("/facesnap")
+    @PostMapping("")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public Facesnap createSnapface(@RequestBody Facesnap facesnap) {
         return facesnapService.saveFacesnap(facesnap);
     }
@@ -49,7 +60,8 @@ public class FacesnapController {
      * Delete - Delete an facesnap
      * @param id - The id of the facesnap to delete
      */
-    @DeleteMapping("/facesnap/{id}")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public void deleteFacesnap(@PathVariable("id") final Long id) {
         facesnapService.deleteFacesnap(id);
     }
@@ -60,7 +72,8 @@ public class FacesnapController {
      * @param facesnap - the facesnap object to update
      * @return - Deleted facesnap
      */
-    @PutMapping("/facesnap/{id}")
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public Facesnap updateFacesnap(@PathVariable("id") final Long id, @RequestBody Facesnap facesnap) {
         Optional<Facesnap> f = facesnapService.getFacesnap(id);
         if(f.isPresent()) {

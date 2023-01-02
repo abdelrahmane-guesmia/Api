@@ -1,6 +1,6 @@
-package com.snapface.api.service;
+package com.snapface.api.services;
 
-import com.snapface.api.model.Facesnap;
+import com.snapface.api.models.Facesnap;
 import com.snapface.api.repository.FacesnapRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

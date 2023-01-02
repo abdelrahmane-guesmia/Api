@@ -1,7 +1,8 @@
-package com.snapface.api.model;
+package com.snapface.api.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "facesnaps")
 public class Facesnap {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +18,8 @@ public class Facesnap {
     private String title;
     private String description;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreationTimestamp
     private Date createdDate;
 
     private Integer snaps;
